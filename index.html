@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Big Data on IPEA</title>
+
+		<meta name="description" content="Big data presentation.">
+		<meta name="author" content="Jader Martins">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/solarized-light.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+                <section data-background-color="#233142">
+                    <section>
+                        <h1>Massive Computing</h1>
+                        <h4>Spark, Hive and Hadoop ecosystem</h4>
+                        <p>
+                            <small>Jader Martins</small>
+                        </p>
+                    </section>
+
+				<!-- Example of nested vertical slides -->
+                    <section>
+                        <ul>
+                        <h2>Agenda</h2>
+                        <ol>
+                            <li>Hadoop</li>
+                            <li>Hive</li>
+                            <li>Parquet</li>
+                            <li>Spark</li>
+                        </ol>
+                    </section>
+				</section>
+
+
+				<section>
+                    <section data-background-color="#facf5a">
+					<h1>Hadoop</h1>
+                    </section>
+
+                    <section data-background-color="#facf5a">
+						<h2>Sistema de Arquivos Distribuidos</h2>
+                        <img data-src="img/infranode.png" height="400px">
+                    </section>
+
+                    <section data-background-color="#facf5a">
+						<h2>Em Disco</h2>
+						<img data-src="img/hdfs.png">
+					</section>
+
+                    <section data-background-color="#facf5a">
+                        <h2>Infraestrutura</h2>
+                        <img data-src="img/yarn.jpg" height="300px">
+                    </section>
+				</section>
+
+
+				<section>
+                    <section data-background-color="#4f9da6">
+					<h1>Hive</h1>
+                    </section>
+
+                    <section data-background-color="#4f9da6">
+                        <h2>Infraestrutura</h2>
+                        <img data-src="img/hive.jpg" height="500px">
+                    </section>
+
+                    <section data-background-color="#4f9da6">
+                        <h2>Exemplo</h2>
+						<pre><code class="hljs" data-trim contenteditable>
+                            CREATE EXTERNAL TABLE IF NOT EXISTS airlines
+                            (Code string, Description string)
+                            ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+                            WITH SERDEPROPERTIES
+                            ("separatorChar" = '\,', "quoteChar" = '\"')
+                            STORED AS TEXTFILE
+                            tblproperties("skip.header.line.count"="1");
+
+                            LOAD DATA INPATH '/user/rstudio-user/airlines'
+                            INTO TABLE airlines;
+						</code></pre>
+                    </section>
+
+                    <section data-background-color="#4f9da6">
+                        <h2>Parquet</h2>
+						<img data-src="https://arrow.apache.org/img/simd.png" height="400px">
+					</section>
+
+                    <section data-background-color="#4f9da6">
+						<h2>Codificação</h2>
+						<img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Huffman_tree_2.svg/1200px-Huffman_tree_2.svg.png" height="400px">
+					</section>
+
+                    <section data-background-color="#4f9da6">
+						<h2>Paginação</h2>
+						<img data-src="https://raw.github.com/apache/parquet-format/master/doc/images/FileLayout.gif" height="400px">
+					</section>
+
+                    <section data-background-color="#4f9da6">
+						<table>
+							<thead><tr>
+								<th>DADOS</th>
+								<th>CSV (.csv)</th>
+								<th>R (.rds)</th>
+								<th>SAS (.sas7bdat)</th>
+								<th>STATA (.dta)</th>
+								<th>Parquet (.parquet)</th>
+							</tr></thead>
+							<tbody><tr>
+								<td>RAIS 2016</td>
+								<td>32,6GB</td>
+								<td>-</td>
+								<td>27,4GB</td>
+								<td>37GB</td>
+								<td>10,3GB</td>
+							</tr>
+							<tr>
+								<td>CNIS_PF PESSOAS</td>
+								<td>35GB</td>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td>17,9GB</td>
+							</tr>
+							<tr>
+								<td>CADSUSMPI</td>
+								<td>120,7GB</td>
+								<td>-</td>
+								<td>-</td>
+								<td>-</td>
+								<td>47,7GB</td>
+							</tr>
+							</tbody>
+						</table>
+					</section>
+				</section>
+
+
+				<section>
+                    <section data-background-color="#ff5959">
+					<h1>Spark</h1>
+                    </section>
+
+                    <section data-background-color="#ff5959">
+                        <h2>O Paradigma MapReduce</h2>
+                        <img data-src="https://cdn-images-1.medium.com/max/1600/1*KKm4roOpsum147kKk5qp7A.jpeg" height="400px">
+                    </section>
+
+                    <section data-background-color="#ff5959">
+						<img data-src="https://www.infosun.fim.uni-passau.de/cl/MapReduceFoundation/images/mapreduce-example.png">
+					</section>
+
+                    <section data-background-color="#ff5959">
+                        <img data-src="https://cdn-images-1.medium.com/max/1600/0*4KYSXrHdwwmyau8h." height="400px">
+                    </section>
+
+                    <section data-background-color="#ff5959">
+                        <h2>Spark Stack</h2>
+                        <img data-src="https://spark.apache.org/images/spark-stack.png">
+                    </section>
+
+                    <section data-background-color="#ff5959">
+                        <h2>Visão Geral</h2>
+                        <img data-src="https://qph.fs.quoracdn.net/main-qimg-5de2ad1dc83b2f06b88d17c7267cf7be">
+                    </section>
+				</section>
+
+
+                <section data-background-color="#233142">
+					<h1>Nova infraestrutura</h1>
+					<img data-src="infra.png">
+				</section>
+
+
+                <section style="text-align: left;" data-background-color="#233142">
+					<h1>FIM</h1>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
